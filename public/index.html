@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <title>hello title</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            body {
+                background-color: aliceblue;
+
+            }
+            form{
+                background: #cccccc;
+                width: 260px;
+                height: 260px;
+                margin: 35px auto;
+                padding: 30px;
+                border-radius: 3px;
+            }
+            .label{
+                width: 260px;
+                height: 40px;
+                background: #e1dcd8;
+                color: rgb(98,94,91);
+                box-shadow: inset 0px 2px 5px #aaaaaa;
+                border-radius: 5px;
+                position: relative;
+                margin: 5px 0;
+            }
+            .name,.age{
+                position: absolute;
+                top: 12px;
+                left: 10px;
+            }
+            .label input{
+                height: 40px;
+                width: 190px;
+                margin-left: 60px;
+                border: none;
+                background: #e1dcd8;
+                color: rgb(98,94,91);
+                box-shadow:
+                        0px 1px 1px rgba(255,255,255,0.7),
+                        inset 0px 2px 5px #aaaaaa;
+                border-radius: 5px;
+
+            }
+            input:focus{
+                outline: none;
+                background: #f5f2ef;
+            }
+            .button{
+                width: 40%;
+                height: 40px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 18px;
+                border-radius: 5px;
+                border: 1px solid silver;
+                box-shadow:
+                        0px 1px 0px rgba(170,170,170,1),
+                        inset 0px 1px 1px rgba(255,255,255,0.7);
+                text-shadow:
+                        0px -1px 0px rgba(000,000,000,0.3),
+                        0px 0px 0px rgba(255,255,255,0);
+            }
+            .button:hover{
+                opacity: 0.8;
+            }
+            .button:active {
+                background: #607738;
+            }
+        </style>
+        <script src="./ajax.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <form action="/submit" method="post">
+                    <div class="label">
+                        <span class="name">姓名</span><input id="name" type="text" value="">
+                    </div>
+                    <div class="label">
+                        <span class="age">年龄</span><input id="age" type="text" value="">
+                    </div>
+                    <input class="button" id="button" type="button" value="提交">
+            </form>
+        </div>
+        <script>
+            // 第1部分功能
+            // 初始化页面时，请求接口拿到数据，展示在页面上
+            ajax({
+                url: "./example/1022.json",                       //服务器请求地址
+                type: "GET",                               //请求方法类型：GET/POST
+                data: {},                                  //请求参数对象
+                dataType: "json",                          //接收数据类型
+                success: (res) => {
+                    // 成功拿到数据后把数据展示在页面中
+                    let data = JSON.parse(res);
+                    showData(data);
+                },
+                fail: (res) => {
+                    console.log('请求失败：', res);
+                }
+            });
+            function showData (res) {
+                var name = res.name;
+                var age = res.age;
+                document.querySelector('#name').setAttribute("value", name);
+                document.querySelector('#age').setAttribute("value", age);
+
+                res.groupName
+            }
+
+
+
+            // 第2部分功能
+            // 修改输入框中的内容，点击提交，把数据发送到服务端
+            $button = document.querySelector('#button');
+            $button.addEventListener('click', () => {
+                var name = document.querySelector('#name').getAttribute("value");
+                var age = document.querySelector('#age').getAttribute("value");
+                var params = {
+                    name: name,
+                    age: age
+                }
+                ajax({
+                    url: '/submit',
+                    type: "POST",                       
+                    data: params,                       
+                    dataType: "json",                   
+                    success: (res) => {
+                        console.log('请求成功');
+                    },
+                    fail: (res) => {
+                        console.log('请求失败：', res);
+                    }
+                });
+            })
+        </script>
+    </body>
+</html>
