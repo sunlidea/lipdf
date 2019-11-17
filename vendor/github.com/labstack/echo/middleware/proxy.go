@@ -13,7 +13,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 )
 
 // TODO: Handle TLS proxy
@@ -37,11 +37,11 @@ type (
 		// "/users/*/orders/*": "/user/$1/order/$2",
 		Rewrite map[string]string
 
-		// Context key to store selected ProxyTarget into context.
+    // Context key to store selected ProxyTarget into context.
 		// Optional. Default value "target".
 		ContextKey string
 
-		// To customize the transport to remote.
+    // To customize the transport to remote.
 		// Examples: If custom TLS certificates are required.
 		Transport http.RoundTripper
 
@@ -92,14 +92,15 @@ func proxyRaw(t *ProxyTarget, c echo.Context) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		in, _, err := c.Response().Hijack()
 		if err != nil {
-			c.Set("_error", fmt.Sprintf("proxy raw, hijack error=%v, url=%s", t.URL, err))
+			c.Error(fmt.Errorf("proxy raw, hijack error=%v, url=%s", t.URL, err))
 			return
 		}
 		defer in.Close()
 
 		out, err := net.Dial("tcp", t.URL.Host)
 		if err != nil {
-			c.Set("_error", echo.NewHTTPError(http.StatusBadGateway, fmt.Sprintf("proxy raw, dial error=%v, url=%s", t.URL, err)))
+			he := echo.NewHTTPError(http.StatusBadGateway, fmt.Sprintf("proxy raw, dial error=%v, url=%s", t.URL, err))
+			c.Error(he)
 			return
 		}
 		defer out.Close()
@@ -107,7 +108,8 @@ func proxyRaw(t *ProxyTarget, c echo.Context) http.Handler {
 		// Write header
 		err = r.Write(out)
 		if err != nil {
-			c.Set("_error", echo.NewHTTPError(http.StatusBadGateway, fmt.Sprintf("proxy raw, request header copy error=%v, url=%s", t.URL, err)))
+			he := echo.NewHTTPError(http.StatusBadGateway, fmt.Sprintf("proxy raw, request header copy error=%v, url=%s", t.URL, err))
+			c.Error(he)
 			return
 		}
 
@@ -121,7 +123,7 @@ func proxyRaw(t *ProxyTarget, c echo.Context) http.Handler {
 		go cp(in, out)
 		err = <-errCh
 		if err != nil && err != io.EOF {
-			c.Set("_error", fmt.Errorf("proxy raw, copy body error=%v, url=%s", t.URL, err))
+			c.Logger().Errorf("proxy raw, copy body error=%v, url=%s", t.URL, err)
 		}
 	})
 }
@@ -198,7 +200,7 @@ func Proxy(balancer ProxyBalancer) echo.MiddlewareFunc {
 func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
 	// Defaults
 	if config.Skipper == nil {
-		config.Skipper = DefaultProxyConfig.Skipper
+		config.Skipper = DefaultLoggerConfig.Skipper
 	}
 	if config.Balancer == nil {
 		panic("echo: proxy middleware requires balancer")
@@ -248,9 +250,6 @@ func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
 			case req.Header.Get(echo.HeaderAccept) == "text/event-stream":
 			default:
 				proxyHTTP(tgt, c, config).ServeHTTP(res, req)
-			}
-			if e, ok := c.Get("_error").(error); ok {
-				err = e
 			}
 
 			return

@@ -15,40 +15,40 @@
 			"revisionTime": "2019-04-16T17:24:45Z"
 		},
 		{
-			"checksumSHA1": "VeVn6KG/yjl/8DOazSNIN8magPo=",
+			"checksumSHA1": "XltDz+gQ+Xo0ryKNhc655/mca2Q=",
 			"path": "github.com/labstack/echo",
-			"revision": "b2c623b07dd1362011f2677147ffbbe48ea3b178",
-			"revisionTime": "2017-01-16T01:11:04Z"
+			"revision": "739700bf4ef7f1dca5b111dec55114fc66207aaa",
+			"revisionTime": "2019-01-26T22:39:45Z"
 		},
 		{
-			"checksumSHA1": "czJG/+toQc75O7/tcJ+Mh+xA56k=",
+			"checksumSHA1": "Rp/k+BJKpaeB9vyjEPFBW4LeFP8=",
 			"path": "github.com/labstack/echo/middleware",
-			"revision": "5c7c87d09e23a8943f71f3057030919fb28f1349",
-			"revisionTime": "2019-11-11T20:34:13Z"
+			"revision": "739700bf4ef7f1dca5b111dec55114fc66207aaa",
+			"revisionTime": "2019-01-26T22:39:45Z"
 		},
 		{
-			"checksumSHA1": "NvfQq6Y6kh9cMw+y1m00ivEd5b4=",
+			"checksumSHA1": "rN+p4nPdKiIwqMSvdOiNW0hscuA=",
 			"path": "github.com/labstack/gommon/bytes",
-			"revision": "f72d3c883f8ea180da8f085dd320804c41332ad1",
-			"revisionTime": "2017-01-12T04:03:50Z"
+			"revision": "4919956f6fb227b548f004da27c7c6b20fba499f",
+			"revisionTime": "2019-08-17T14:29:43Z"
 		},
 		{
 			"checksumSHA1": "R6DzcBLEP0BONPpsyr+11N7xh5w=",
 			"path": "github.com/labstack/gommon/color",
-			"revision": "f72d3c883f8ea180da8f085dd320804c41332ad1",
-			"revisionTime": "2017-01-12T04:03:50Z"
+			"revision": "4919956f6fb227b548f004da27c7c6b20fba499f",
+			"revisionTime": "2019-08-17T14:29:43Z"
 		},
 		{
-			"checksumSHA1": "uHA6zbtxzJce4r+6uk8zu11qkuk=",
+			"checksumSHA1": "NRXvF1Wn6fF9wcPOOv9MNSdDRaE=",
 			"path": "github.com/labstack/gommon/log",
-			"revision": "f72d3c883f8ea180da8f085dd320804c41332ad1",
-			"revisionTime": "2017-01-12T04:03:50Z"
+			"revision": "4919956f6fb227b548f004da27c7c6b20fba499f",
+			"revisionTime": "2019-08-17T14:29:43Z"
 		},
 		{
-			"checksumSHA1": "XvsHo25Kr69E5xxTDatXzCQc6sI=",
+			"checksumSHA1": "iPlSnDjuur4cK1G/7mJM/7frIm4=",
 			"path": "github.com/labstack/gommon/random",
-			"revision": "f72d3c883f8ea180da8f085dd320804c41332ad1",
-			"revisionTime": "2017-01-12T04:03:50Z"
+			"revision": "4919956f6fb227b548f004da27c7c6b20fba499f",
+			"revisionTime": "2019-08-17T14:29:43Z"
 		},
 		{
 			"checksumSHA1": "I4njd26dG5hxFT2nawuByM4pxzY=",

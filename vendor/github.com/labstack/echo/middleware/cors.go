@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 )
 
 type (
@@ -100,10 +100,6 @@ func CORSWithConfig(config CORSConfig) echo.MiddlewareFunc {
 				}
 				if o == "*" || o == origin {
 					allowOrigin = o
-					break
-				}
-				if matchSubdomain(origin, o) {
-					allowOrigin = origin
 					break
 				}
 			}

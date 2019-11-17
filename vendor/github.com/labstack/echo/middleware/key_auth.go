@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 )
 
 type (
@@ -99,14 +99,11 @@ func KeyAuthWithConfig(config KeyAuthConfig) echo.MiddlewareFunc {
 			}
 			valid, err := config.Validator(key, c)
 			if err != nil {
-				return &echo.HTTPError{
-					Code:     http.StatusUnauthorized,
-					Message:  "invalid key",
-					Internal: err,
-				}
+				return err
 			} else if valid {
 				return next(c)
 			}
+
 			return echo.ErrUnauthorized
 		}
 	}
