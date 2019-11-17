@@ -19,7 +19,6 @@ type WebHandler struct {}
 // example file
 func (wh *WebHandler) Example(c echo.Context) error {
 
-	fmt.Println("Example Start:", c.FormValue("PdfPath"))
 	pdfPath := c.FormValue("PdfPath")
 	absPdfPath, err := filepath.Abs(pdfPath)
 	if err != nil {
@@ -54,7 +53,6 @@ func (wh *WebHandler) Example(c echo.Context) error {
 	}
 	fieldInfo.PdfPath = pdfPath
 
-	fmt.Println("Example End:", c.FormValue("PdfPath"))
 	return c.JSON(http.StatusOK, marshalSpecialChar(&fieldInfo))
 }
 
@@ -64,10 +62,6 @@ type SubmitResp struct {
 
 // submit fileds, fill form
 func (wh *WebHandler) Submit(c echo.Context) error {
-
-	fmt.Println("Submit Start:",
-		c.FormValue("Fields"),
-		c.FormValue("PdfPath"))
 
 	var m map[string]interface{}
 	params := c.FormValue("Fields")
@@ -95,7 +89,6 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 	resp := SubmitResp{
 		PdfPath: outPath,
 	}
-	fmt.Println("Submit End:", outPath)
 	return c.JSON(http.StatusOK, resp)
 }
 
@@ -153,6 +146,7 @@ func marshalSpecialChar(fieldInfo *core.FieldInfo) *core.FieldInfo {
 	for _, groupField := range fieldInfo.GroupFields {
 		gf := core.GroupField{}
 		gf.GroupName = replaceSpecialChar(groupField.GroupName)
+		gf.ShowName = groupField.ShowName
 
 		fs := make([]core.Field, 0, len(groupField.Fields))
 		for _, field := range groupField.Fields {
