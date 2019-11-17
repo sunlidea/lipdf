@@ -26,17 +26,17 @@
         {
           "FieldType": "Text",
           "FieldName": "ap.corresp str",
-          "ViewName": ""
+          "ViewName": "street"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.corresp cntry",
-          "ViewName": ""
+          "ViewName": "country"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.corresp sub",
-          "ViewName": ""
+          "ViewName": "sub address"
         },
         {
           "FieldType": "Text",
@@ -105,17 +105,17 @@
         {
           "FieldType": "Text",
           "FieldName": "ap.fax ph",
-          "ViewName": ""
+          "ViewName": "Number"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.fax cc",
-          "ViewName": ""
+          "ViewName": "Country code"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.fax ac",
-          "ViewName": ""
+          "ViewName": "Area code"
         }
       ],
       "GroupName": "ap.fax",
@@ -227,17 +227,17 @@
         {
           "FieldType": "Text",
           "FieldName": "ap.resi cntry",
-          "ViewName": ""
+          "ViewName": "Country"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.resi sub",
-          "ViewName": ""
+          "ViewName": "Sub address"
         },
         {
           "FieldType": "Text",
           "FieldName": "ap.resi str",
-          "ViewName": ""
+          "ViewName": "Street"
         },
         {
           "FieldType": "Text",
