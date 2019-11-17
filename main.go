@@ -10,7 +10,7 @@ func main() {
 
 	//static file
 	e.Static("/", "public")
-	e.Static("/download", "file")
+	e.Static("/download/file", "file")
 	e.Static("/example", "example")
 
 	wh := &handler.WebHandler{}
