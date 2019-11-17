@@ -78,7 +78,7 @@ func TestFillForm(t *testing.T) {
 		return
 	}
 
-	err = FillForm(m, pdfPath)
+	_, err = FillForm(m, pdfPath, true)
 	if err != nil {
 		t.Fatalf("FillForm:%v", err)
 		return

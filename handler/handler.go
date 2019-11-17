@@ -16,7 +16,7 @@ import (
 
 type WebHandler struct {}
 
-// example
+// example file
 func (wh *WebHandler) Example(c echo.Context) error {
 
 	fmt.Println("Example Start:", c.FormValue("PdfPath"))

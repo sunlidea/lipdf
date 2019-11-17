@@ -22,6 +22,7 @@ func main() {
 	e.POST("/example", wh.Example)
 	e.POST("/upload", wh.Upload)
 
+	//start http server
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
