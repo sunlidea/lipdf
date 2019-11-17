@@ -58,6 +58,10 @@ func (wh *WebHandler) Example(c echo.Context) error {
 	return c.JSON(http.StatusOK, marshalSpecialChar(&fieldInfo))
 }
 
+type SubmitResp struct {
+	PdfPath string `json:"PdfPath"`
+}
+
 // submit fileds, fill form
 func (wh *WebHandler) Submit(c echo.Context) error {
 
@@ -88,8 +92,11 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 		return c.NoContent(http.StatusInternalServerError)
 	}
 
+	resp := SubmitResp{
+		PdfPath: outPath,
+	}
 	fmt.Println("Submit End:", outPath)
-	return c.String(http.StatusOK, outPath)
+	return c.JSON(http.StatusOK, resp)
 }
 
 //upload file
