@@ -136,7 +136,9 @@ func (wh *WebHandler) Upload(c echo.Context) error {
 
 // handle field name "."
 func marshalSpecialChar(fieldInfo *core.FieldInfo) *core.FieldInfo {
-	result := &core.FieldInfo{}
+	result := &core.FieldInfo{
+		PdfPath: fieldInfo.PdfPath,
+	}
 	result.GroupFields = make([]core.GroupField, 0, len(fieldInfo.GroupFields))
 	result.SingleFields = make([]core.Field, 0, len(fieldInfo.SingleFields))
 
