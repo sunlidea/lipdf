@@ -148,7 +148,7 @@ func FillForm(form map[string]interface{}, pdfPath string) (string, error) {
 	}
 
 	outID := fmt.Sprintf("%s.pdf", uuid.New())
-	outPdfPath := fmt.Sprintf("../file/%s", outID)
+	outPdfPath := fmt.Sprintf("file/%s", outID)
 
 	// pdftk form.pdf fill_form data.fdf output form.filled.pdf
 	args := []string {

@@ -70,7 +70,10 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	pdfPath := c.FormValue("PdfPath")
+	pdfPath, err := filepath.Abs(c.FormValue("PdfPath"))
+	if err != nil {
+		return c.NoContent(http.StatusBadRequest)
+	}
 	e, err := core.Exists(pdfPath)
 	if err != nil || !e{
 		fmt.Printf("Submit|Exists|Fail|%v|%s\n", err, pdfPath)
@@ -84,6 +87,7 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 		return c.NoContent(http.StatusInternalServerError)
 	}
 
+	fmt.Println("Submit End:")
 	return c.String(http.StatusOK, outPath)
 }
 
