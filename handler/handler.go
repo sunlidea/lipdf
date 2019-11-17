@@ -19,6 +19,7 @@ type WebHandler struct {}
 // example
 func (wh *WebHandler) Example(c echo.Context) error {
 
+	fmt.Println("Example Start:", c.FormValue("PdfPath"))
 	pdfPath := c.FormValue("PdfPath")
 	absPdfPath, err := filepath.Abs(pdfPath)
 	if err != nil {
@@ -53,11 +54,16 @@ func (wh *WebHandler) Example(c echo.Context) error {
 	}
 	fieldInfo.PdfPath = pdfPath
 
-	return c.JSON(http.StatusOK, fieldInfo)
+	fmt.Println("Example End:", c.FormValue("PdfPath"))
+	return c.JSON(http.StatusOK, marshalSpecialChar(&fieldInfo))
 }
 
 // submit fileds, fill form
 func (wh *WebHandler) Submit(c echo.Context) error {
+
+	fmt.Println("Submit Start:",
+		c.FormValue("Fields"),
+		c.FormValue("PdfPath"))
 
 	var m map[string]interface{}
 	params := c.FormValue("Fields")
@@ -65,6 +71,8 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 	if err != nil {
 		return c.NoContent(http.StatusBadRequest)
 	}
+
+	m = unmarshalSpecialChar(m)
 
 	pdfPath, err := filepath.Abs(c.FormValue("PdfPath"))
 	if err != nil {
@@ -80,6 +88,7 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 		return c.NoContent(http.StatusInternalServerError)
 	}
 
+	fmt.Println("Submit End:", outPath)
 	return c.String(http.StatusOK, outPath)
 }
 
@@ -122,13 +131,55 @@ func (wh *WebHandler) Upload(c echo.Context) error {
 		return c.NoContent(http.StatusInternalServerError)
 	}
 
-	return c.JSON(http.StatusOK, fileInfo)
+	return c.JSON(http.StatusOK, marshalSpecialChar(fileInfo))
 }
 
-func marshalSpecialChar(key string) string {
-	return strings.Replace(key, ".", "#", -1)
+// handle field name "."
+func marshalSpecialChar(fieldInfo *core.FieldInfo) *core.FieldInfo {
+	result := &core.FieldInfo{}
+	result.GroupFields = make([]core.GroupField, 0, len(fieldInfo.GroupFields))
+	result.SingleFields = make([]core.Field, 0, len(fieldInfo.SingleFields))
+
+	gfs := make([]core.GroupField, 0, len(fieldInfo.GroupFields))
+	for _, groupField := range fieldInfo.GroupFields {
+		gf := core.GroupField{}
+		gf.GroupName = replaceSpecialChar(groupField.GroupName)
+
+		fs := make([]core.Field, 0, len(groupField.Fields))
+		for _, field := range groupField.Fields {
+			f := field
+			f.FieldName = replaceSpecialChar(f.FieldName)
+			fs = append(fs, f)
+		}
+		gf.Fields = fs
+
+		gfs = append(gfs, gf)
+	}
+	result.GroupFields = gfs
+
+	fs := make([]core.Field, 0, len(fieldInfo.SingleFields))
+	for _, field := range fieldInfo.SingleFields {
+		f := field
+		f.FieldName = replaceSpecialChar(f.FieldName)
+		fs = append(fs, f)
+	}
+	result.SingleFields = fs
+
+	return result
+}
+func replaceSpecialChar(str string) string {
+	return strings.Replace(str, ".", "#", -1)
 }
 
-func unmarshalSpecialChar(key string) string {
-	return strings.Replace(key, "#", ".", -1)
+// restore field name "."
+func unmarshalSpecialChar(m map[string]interface{}) map[string]interface{} {
+	rm := make(map[string]interface{}, len(m))
+	for k, v := range m {
+		rm[restoreSpecialChar(k)] = v
+	}
+	return rm
 }
+func restoreSpecialChar(str string) string {
+	return strings.Replace(str, "#", ".", -1)
+}
+
