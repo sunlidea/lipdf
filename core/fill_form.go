@@ -123,7 +123,7 @@ func pdfFormFields(pdfPath string) (map[string]Field, error) {
 }
 
 // fill form to designated pdf
-func FillForm(form map[string]interface{}, pdfPath string) (string, error) {
+func FillForm(form map[string]interface{}, pdfPath string, flatten bool) (string, error) {
 
 	// Create a temporary directory.
 	tmpDir, err := ioutil.TempDir("", "fillpdf-")
@@ -155,7 +155,11 @@ func FillForm(form map[string]interface{}, pdfPath string) (string, error) {
 		"fill_form",
 		fdfFile,
 	}
-	err = generateCore(pdfPath, outPdfPath, args)
+	var lastOptions []string
+	if flatten {
+		lastOptions = append(lastOptions, "flatten")
+	}
+	err = generateCore(pdfPath, outPdfPath, args, lastOptions)
 	if err != nil {
 		return "", fmt.Errorf("pdftk exec fail: %v", err)
 	}

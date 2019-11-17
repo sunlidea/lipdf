@@ -10,7 +10,7 @@ import (
 
 //dump field data from pdf
 func dumpFields(pdfPath string, destPath string) (err error) {
-	err = generateCore(pdfPath, destPath, []string{"dump_data_fields_utf8"})
+	err = generateCore(pdfPath, destPath, []string{"dump_data_fields_utf8"}, []string{})
 	if err != nil {
 		return fmt.Errorf("failed to invoke generateCore: %v", err)
 	}

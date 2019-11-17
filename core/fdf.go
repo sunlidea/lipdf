@@ -25,15 +25,15 @@ func init() {
 
 //generate fdf file from pdf
 func GenerateFdf(pdfPath string, destPath string) (err error) {
-	err = generateCore(pdfPath, destPath, []string{"generate_fdf"})
+	err = generateCore(pdfPath, destPath, []string{"generate_fdf"}, []string{})
 	if err != nil {
 		return fmt.Errorf("failed to invoke generateCore: %v", err)
 	}
 	return nil
 }
 
-// exec pdftk
-func generateCore(pdfPath string, destPath string, options []string) (err error) {
+// exec pdftk  | options: between input and ouput | lastOptions: after ouput
+func generateCore(pdfPath string, destPath string, options []string, lastOptions []string) (err error) {
 	pdfPath, err = filepath.Abs(pdfPath)
 	if err != nil {
 		return fmt.Errorf("filepath abs fail|%v|%s", err, pdfPath)
@@ -89,6 +89,8 @@ func generateCore(pdfPath string, destPath string, options []string) (err error)
 	args = append(args, options...)
 	//output file
 	args = append(args, "output", outFdfFile)
+	//last options
+	args = append(args, lastOptions...)
 
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*120)
 	_, err = execCmdInDir(ctx, tmpDir, "pdftk", args...)

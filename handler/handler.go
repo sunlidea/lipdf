@@ -75,7 +75,7 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	outPath, err := core.FillForm(m, pdfPath)
+	outPath, err := core.FillForm(m, pdfPath, true)
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)
 	}
@@ -123,4 +123,12 @@ func (wh *WebHandler) Upload(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, fileInfo)
+}
+
+func marshalSpecialChar(key string) string {
+	return strings.Replace(key, ".", "#", -1)
+}
+
+func unmarshalSpecialChar(key string) string {
+	return strings.Replace(key, "#", ".", -1)
 }
