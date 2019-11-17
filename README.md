@@ -243,7 +243,7 @@ FieldJustification: Left
 
 ### 利用pdftk.fill_form填充PDF表单
 
-利用pdftk.fill_form指令，利用生成的fdf文件充PDF表单
+利用pdftk.fill_form指令，利用生成的fdf文件填充PDF表单
 ```shell
 pdftk form.pdf fill_form data.fdf output form.filled.pdf
 ```
