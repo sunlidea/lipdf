@@ -78,8 +78,11 @@ func pdfFormFields(pdfPath string) (map[string]Field, error) {
 	fileID := uuid.New()
 
 	// dump fields to dest file
-	dumpPath := fmt.Sprintf("../file/%s.dump", fileID)
-	err := dumpFields(pdfPath, dumpPath)
+	dumpPath, err := filepath.Abs(fmt.Sprintf("file/%s.dump", fileID))
+	if err != nil {
+		return nil, err
+	}
+	err = dumpFields(pdfPath, dumpPath)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +95,10 @@ func pdfFormFields(pdfPath string) (map[string]Field, error) {
 	}
 
 	// generate fdf file
-	fdfPath := fmt.Sprintf("../file/%s.fdf", fileID)
+	fdfPath, err := filepath.Abs(fmt.Sprintf("file/%s.fdf", fileID))
+	if err != nil {
+		return nil, err
+	}
 	err = GenerateFdf(pdfPath, fdfPath)
 	if err != nil {
 		return nil, err
