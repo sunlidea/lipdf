@@ -20,24 +20,23 @@ type WebHandler struct {}
 func (wh *WebHandler) Example(c echo.Context) error {
 
 	pdfPath := c.FormValue("PdfPath")
-	p, err := filepath.Abs(pdfPath)
+	absPdfPath, err := filepath.Abs(pdfPath)
 	if err != nil {
 		return c.NoContent(http.StatusBadRequest)
 	}
-	pdfPath = p
-	e, err := core.Exists(pdfPath)
+	e, err := core.Exists(absPdfPath)
 	if err != nil || !e{
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	e, err = core.Exists(pdfPath)
+	e, err = core.Exists(absPdfPath)
 	if err != nil {
 		return c.NoContent(http.StatusBadRequest)
 	} else if !e {
 		return c.NoContent(http.StatusBadRequest)
 	}
 
-	jsonPath := fmt.Sprintf("%s.json", strings.TrimSuffix(pdfPath, ".pdf"))
+	jsonPath := fmt.Sprintf("%s.json", strings.TrimSuffix(absPdfPath, ".pdf"))
 	e, err = core.Exists(jsonPath)
 	if err != nil || !e{
 		return c.NoContent(http.StatusBadRequest)
@@ -60,13 +59,10 @@ func (wh *WebHandler) Example(c echo.Context) error {
 // submit fileds, fill form
 func (wh *WebHandler) Submit(c echo.Context) error {
 
-	fmt.Println("Submit Start:")
-
 	var m map[string]interface{}
 	params := c.FormValue("Fields")
 	err := json.Unmarshal([]byte(params), &m)
 	if err != nil {
-		fmt.Printf("Submit|Unmarshal|Fail|%v|%s\n", err, params)
 		return c.NoContent(http.StatusBadRequest)
 	}
 
@@ -76,18 +72,14 @@ func (wh *WebHandler) Submit(c echo.Context) error {
 	}
 	e, err := core.Exists(pdfPath)
 	if err != nil || !e{
-		fmt.Printf("Submit|Exists|Fail|%v|%s\n", err, pdfPath)
 		return c.NoContent(http.StatusBadRequest)
 	}
 
 	outPath, err := core.FillForm(m, pdfPath)
 	if err != nil {
-		fmt.Printf("Submit|FillForm|Fail|%v|%+v|%+v\n",
-			err, m, pdfPath)
 		return c.NoContent(http.StatusInternalServerError)
 	}
 
-	fmt.Println("Submit End:")
 	return c.String(http.StatusOK, outPath)
 }
 
