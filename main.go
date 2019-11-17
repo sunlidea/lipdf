@@ -2,11 +2,14 @@ package main
 
 import (
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/sunlidea/lipdf/handler"
 )
 
 func main() {
 	e := echo.New()
+
+	e.Use(middleware.CORS())
 
 	//static file
 	e.Static("/", "public")

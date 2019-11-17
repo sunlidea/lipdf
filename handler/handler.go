@@ -53,6 +53,7 @@ func (wh *WebHandler) Example(c echo.Context) error {
 	}
 	fieldInfo.PdfPath = pdfPath
 
+	c.Response().Header().Set()
 	return c.JSON(http.StatusOK, fieldInfo)
 }
 
