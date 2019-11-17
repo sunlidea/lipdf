@@ -20,21 +20,30 @@
 利用fdf文件及dump_data_fields可以完成PDF表单的程序化填写。
 
 该项目更适合 多条信息源（例如：多条学生信息） 需要填写入 同一个PDF表（例如：入学申请表），
-可以实现后台程序自动化填写。
+可以实现后台程序自动化填写，节省人工成本。
 
 如果是将读取的PDF的表单字段field name展示到前端，人工填写。
-因为表单框和注释框是独立的元素，如下图的
+因为表单框和注释文字是独立的元素，如下图中Family name和对应的表单框
+并没有直接关系，只是排版到了一起。目前还没有想到对应的方法~
 
+![image](https://raw.githubusercontent.com/sunlidea/img/master/pdf_form.png)
 
 ## 网页版示例
 
+访问<http://95.179.155.168:1323/index.html>可以测试在网页端填写pdf表单，
+提交后可下载填充后的PDF文件。
 
+注意其中的示例文档1022.pdf可直接点击进行填写，该实例文档表单框旁边的注释进行了
+人工标注，所以会比较规范
+
+如果是自定义上传的pdf，表单的注释会是fdf文件中对应的FieldName,可读性就取决于制作
+PDF表单时命名的规范性。（原因是功能说明中解释的暂时未找到表单框和注释文字的对应关系~
 
 ## 说明
 
 ### generate_fdf获取fdf文件并读取
 
-pdf中可交互表单数据格式为FDF(Forms Data Format)，[FDF](https://en.wikipedia.org/wiki/PDF#Forms_Data_Format_.28FDF.29),
+pdf中可交互表单数据格式为[FDF(Forms Data Format)](https://en.wikipedia.org/wiki/PDF#Forms_Data_Format_.28FDF.29)，
 
 利用pdftk指令generate_fdf可以从PDF文件中导出fdf数据
 ```shell
