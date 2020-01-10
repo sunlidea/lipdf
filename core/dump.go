@@ -38,7 +38,7 @@ func readDumpFields(filePath string) (map[string]Field, error) {
 
 		// new field info
 		if strings.HasSuffix(line, "---\n") {
-			if len(fd.FieldName) > 0{
+			if len(fd.FieldName) > 0 {
 				fields[fd.FieldName] = fd
 			}
 			fd = Field{}
@@ -69,7 +69,7 @@ func readDumpFields(filePath string) (map[string]Field, error) {
 		return nil, fmt.Errorf("fail to read file:%v", err)
 	}
 	// last field
-	if len(fd.FieldName) > 0{
+	if len(fd.FieldName) > 0 {
 		fields[fd.FieldName] = fd
 	}
 

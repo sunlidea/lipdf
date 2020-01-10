@@ -8,8 +8,8 @@
 <<
 /Kids [
 <<
-/V /
-/T (marital wid)
+/V ()
+/T (fax ac)
 >> 
 <<
 /V /
@@ -17,15 +17,7 @@
 >> 
 <<
 /V ()
-/T (file no)
->> 
-<<
-/V ()
-/T (email)
->> 
-<<
-/V ()
-/T (corresp cntry)
+/T (cit)
 >> 
 <<
 /V ()
@@ -33,31 +25,11 @@
 >> 
 <<
 /V ()
-/T (after ph cc)
+/T (name giv)
 >> 
 <<
 /V ()
-/T (pass no)
->> 
-<<
-/V ()
-/T (resi pc)
->> 
-<<
-/V ()
-/T (after pn)
->> 
-<<
-/V /
-/T (marital nev mar)
->> 
-<<
-/V /
-/T (marital div)
->> 
-<<
-/V ()
-/T (after ph ac)
+/T (dob)
 >> 
 <<
 /V ()
@@ -65,7 +37,91 @@
 >> 
 <<
 /V ()
+/T (off ph ac)
+>> 
+<<
+/V ()
+/T (after ph cc)
+>> 
+<<
+/V ()
+/T (corresp sub)
+>> 
+<<
+/V ()
+/T (resi cntry)
+>> 
+<<
+/V /
+/T (marital wid)
+>> 
+<<
+/V /
+/T (marital div)
+>> 
+<<
+/V ()
+/T (file no)
+>> 
+<<
+/V ()
+/T (resi str)
+>> 
+<<
+/V ()
+/T (pass cntry)
+>> 
+<<
+/V ()
+/T (after pn)
+>> 
+<<
+/V ()
+/T (email)
+>> 
+<<
+/V ()
+/T (corresp str)
+>> 
+<<
+/V /
+/T (com dimia)
+>> 
+<<
+/V ()
+/T (resi sub)
+>> 
+<<
+/V ()
+/T (corresp cntry)
+>> 
+<<
+/V ()
+/T (ident no)
+>> 
+<<
+/V ()
+/T (after ph ac)
+>> 
+<<
+/V ()
+/T (pass no)
+>> 
+<<
+/V ()
 /T (fax cc)
+>> 
+<<
+/V ()
+/T (resi pc)
+>> 
+<<
+/V ()
+/T (ident cntry)
+>> 
+<<
+/V /
+/T (marital eng)
 >> 
 <<
 /V /
@@ -73,11 +129,7 @@
 >> 
 <<
 /V ()
-/T (birth town)
->> 
-<<
-/V ()
-/T (fax ac)
+/T (off ph cc)
 >> 
 <<
 /V ()
@@ -89,71 +141,19 @@
 >> 
 <<
 /V ()
-/T (ident no)
->> 
-<<
-/V ()
-/T (off ph cc)
->> 
-<<
-/V ()
-/T (corresp sub)
->> 
-<<
-/V ()
-/T (off ph ac)
->> 
-<<
-/V ()
-/T (cit)
->> 
-<<
-/V ()
-/T (name giv)
->> 
-<<
-/V ()
-/T (resi str)
->> 
-<<
-/V /
-/T (com dimia)
->> 
-<<
-/V ()
-/T (corresp str)
->> 
-<<
-/V /
-/T (marital eng)
->> 
-<<
-/V ()
-/T (dob)
->> 
-<<
-/V ()
-/T (pass cntry)
->> 
-<<
-/V ()
 /T (name fam)
 >> 
 <<
+/V /
+/T (marital nev mar)
+>> 
+<<
 /V ()
-/T (resi sub)
+/T (birth town)
 >> 
 <<
 /V /
 /T (marital mar)
->> 
-<<
-/V ()
-/T (resi cntry)
->> 
-<<
-/V ()
-/T (ident cntry)
 >>]
 /T (ap)
 >>]
