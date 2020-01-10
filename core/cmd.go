@@ -10,7 +10,7 @@ import (
 )
 
 // Run the command in the specified Dir
-func execCmdInDir(ctx context.Context, dir, name string, args ...string) ([]byte,error) {
+func execCmdInDir(ctx context.Context, dir, name string, args ...string) ([]byte, error) {
 	//output after cmd exec
 	var outputBuf bytes.Buffer
 	cmd := exec.Command(name, args...)

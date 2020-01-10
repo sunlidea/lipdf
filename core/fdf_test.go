@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// test generate fdf
 func TestGenerateFdfByPdf(t *testing.T) {
 	pdfPath := "../file/1022.pdf"
 	fdfPath := "../file/1022.fdf"
@@ -18,9 +19,9 @@ func TestGenerateFdfByPdf(t *testing.T) {
 		t.Fatalf("fail to GenerateFdfByPdf:%v", err)
 		return
 	}
-	t.Logf("succ")
 }
 
+// test readFormFields
 func TestReadFormFields(t *testing.T) {
 	fdfPath := "../file/1022.fdf"
 	keys, err := readFormFields(fdfPath)
@@ -104,11 +105,11 @@ func TestDumpFields(t *testing.T) {
 		return
 	}
 
-	t.Logf("%+v\n",fields)
+	t.Logf("%+v\n", fields)
 }
 
 func TestPdfFieldsToJSON(t *testing.T) {
-	_, err := PdfFieldsToJSON("../example/1022.pdf")
+	_, err := PdfFieldsToJSON("../file/1022.pdf")
 	if err != nil {
 		t.Fatalf("PdfFieldsToJSON:%v", err)
 		return

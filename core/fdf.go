@@ -125,14 +125,14 @@ func readFormFields(filePath string) (map[string]struct{}, error) {
 			break
 		}
 
-		if strings.Contains(line, "[")  {
+		if strings.Contains(line, "[") {
 			l.PushBack("[")
 		}
-		if strings.Contains(line, "]")  {
+		if strings.Contains(line, "]") {
 			l.PushBack("]")
 		}
 
-		if strings.HasPrefix(line, "/T")  {
+		if strings.HasPrefix(line, "/T") {
 			l.PushBack(strings.TrimSuffix(strings.TrimPrefix(line, "/T ("), ")\n"))
 		}
 	}
@@ -168,22 +168,22 @@ func readFormFields(filePath string) (map[string]struct{}, error) {
 				prefix = prefixes[len(prefixes)-1]
 			}
 
-			prevStr:= prev.Value.(string)
+			prevStr := prev.Value.(string)
 			if prevStr == "]" {
 				//just prefix, don't need to add to keys
 				if len(prefix) > 0 {
 					prefix = fmt.Sprintf("%s.%s", prefix, str)
-				}else {
+				} else {
 					prefix = str
 				}
 				prefixes = append(prefixes, prefix)
-			}else {
+			} else {
 
 				// add to keys
 				k := ""
 				if len(prefix) > 0 {
 					k = fmt.Sprintf("%s.%s", prefix, str)
-				}else {
+				} else {
 					k = str
 				}
 				keys[k] = struct{}{}
@@ -191,11 +191,11 @@ func readFormFields(filePath string) (map[string]struct{}, error) {
 				// [[[a]b]c]
 				if prevStr == "[" {
 					for prevStr == "[" {
-						prefixes = prefixes[0:len(prefixes)-1]
+						prefixes = prefixes[0 : len(prefixes)-1]
 						prev = prev.Prev()
 						if prev != nil {
 							prevStr = prev.Value.(string)
-						}else {
+						} else {
 							prevStr = ""
 						}
 					}
@@ -207,6 +207,3 @@ func readFormFields(filePath string) (map[string]struct{}, error) {
 
 	return keys, nil
 }
-
-
-

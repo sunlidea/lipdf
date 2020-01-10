@@ -12,16 +12,16 @@ import (
 )
 
 type Field struct {
-	FieldType string `json:"FieldType"`
-	FieldName string `json:"FieldName"`
-	ViewName  string `json:"ViewName"`
+	FieldType    string   `json:"FieldType"`
+	FieldName    string   `json:"FieldName"`
+	ViewName     string   `json:"ViewName"`
 	FieldOptions []string `json:"FieldOptions,omitempty"`
 }
 
 type GroupField struct {
-	Fields []Field       `json:"Fields"`
-	GroupName string     `json:"GroupName"`
-	ShowName string      `json:"ShowName"`
+	Fields    []Field `json:"Fields"`
+	GroupName string  `json:"GroupName"`
+	ShowName  string  `json:"ShowName"`
 }
 
 type FieldInfo struct {
@@ -44,7 +44,7 @@ func PdfFieldsToJSON(pdfPath string) (*FieldInfo, error) {
 		gKey := ks[0]
 		if _, ok := tmpFields[gKey]; !ok {
 			g := &GroupField{
-				Fields: make([]Field, 0, 1),
+				Fields:    make([]Field, 0, 1),
 				GroupName: gKey,
 			}
 			tmpFields[gKey] = g
@@ -60,14 +60,14 @@ func PdfFieldsToJSON(pdfPath string) (*FieldInfo, error) {
 	for _, gf := range tmpFields {
 		if len(gf.Fields) > 1 {
 			groupFields = append(groupFields, *gf)
-		}else if len(gf.Fields) == 1 {
+		} else if len(gf.Fields) == 1 {
 			singleFields = append(singleFields, gf.Fields[0])
 		}
 	}
 	result := &FieldInfo{
-		PdfPath: pdfPath,
-		GroupFields:groupFields,
-		SingleFields:singleFields,
+		PdfPath:      pdfPath,
+		GroupFields:  groupFields,
+		SingleFields: singleFields,
 	}
 
 	return result, nil
@@ -78,7 +78,7 @@ func pdfFormFields(pdfPath string) (map[string]Field, error) {
 	fileID := uuid.New()
 
 	// dump fields to dest file
-	dumpPath, err := filepath.Abs(fmt.Sprintf("file/%s.dump", fileID))
+	dumpPath, err := filepath.Abs(fmt.Sprintf("../file/%s.dump", fileID))
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func pdfFormFields(pdfPath string) (map[string]Field, error) {
 	}
 
 	// generate fdf file
-	fdfPath, err := filepath.Abs(fmt.Sprintf("file/%s.fdf", fileID))
+	fdfPath, err := filepath.Abs(fmt.Sprintf("../file/%s.fdf", fileID))
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func FillForm(form map[string]interface{}, pdfPath string, flatten bool) (string
 	outPdfPath := fmt.Sprintf("file/%s", outID)
 
 	// pdftk form.pdf fill_form data.fdf output form.filled.pdf
-	args := []string {
+	args := []string{
 		"fill_form",
 		fdfFile,
 	}
@@ -207,4 +207,3 @@ trailer
 /Root 1 0 R
 >>
 %%EOF`
-
